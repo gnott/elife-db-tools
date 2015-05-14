@@ -1,0 +1,6 @@
+*.log
+*.pyc
+*.py~
+build/
+dist/
+elifedbtools.egg-info
