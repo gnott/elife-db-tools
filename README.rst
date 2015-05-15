@@ -1,5 +1,5 @@
 elife-db-tools
-===========
+==============
 
 .. image:: https://travis-ci.org/elifesciences/elife-db-tools.svg?branch=master
    :target: https://travis-ci.org/elifesciences/elife-db-tools
@@ -14,13 +14,13 @@ For now, install directly from git
 
 .. code-block:: bash
 
-   $ pip install git+https://github.com/elifesciences/elife-db-tools.git@master#egg=elifedbtools
+   $ pip install git+https://github.com/elifesciences/elife-db-tools.git@master
 
 or you can add it to your project's requirements.txt file
 
 .. code-block:: bash
 
-   git+https://github.com/elifesciences/elife-db-tools.git@master#egg=elifedbtools
+   git+https://github.com/elifesciences/elife-db-tools.git@master
 
 Testing
 =======
