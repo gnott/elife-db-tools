@@ -1,5 +1,5 @@
 
-from database import *
+import database
 
 
 
@@ -24,7 +24,7 @@ def load_related_article_data():
                  }
                 ]
     for item in data:
-        data_item = RelatedArticle(item.get("from_doi"), item.get("to_doi"))
+        data_item = database.RelatedArticle(item.get("from_doi"), item.get("to_doi"))
         for property in dir(data_item):
             if property not in data_item.primary_keys:
                 setattr(data_item, property, item.get(property))
@@ -54,7 +54,7 @@ def load_article_data():
                  'pub_date': '2015-04-01', 'article_type': 'research-article'})
 
     for item in data:
-        data_item = Article(item.get("doi"))
+        data_item = database.Article(item.get("doi"))
         for property in dir(data_item):
             if property not in data_item.primary_keys:
                 setattr(data_item, property, item.get(property))
