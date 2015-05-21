@@ -46,7 +46,7 @@ class Article(DataObject):
         self.doi = doi
 
     def __dir__(self):
-        return ['doi']
+        return ['doi', 'doi_id', 'title', 'pub_date', 'article_type']
         
 
 def related(doi):
