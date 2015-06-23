@@ -5,6 +5,10 @@ elife-db-tools
    :target: https://travis-ci.org/elifesciences/elife-db-tools
    :alt: Latest Version
 
+.. image:: https://coveralls.io/repos/elifesciences/elife-db-tools/badge.svg
+  :target: https://coveralls.io/r/elifesciences/elife-db-tools
+
+
 Tools for article and production data storage
 
 Install for users
