@@ -2,6 +2,9 @@
 import json
 import testdata
 
+related_articles = []
+articles = []
+
 class DataObject(object):
     def __init__():
         self.primary_keys = []
@@ -53,7 +56,6 @@ def related(doi):
     """
     Get related article items by doi
     """
-    related_articles = testdata.load_related_article_data()
     return filter(lambda item: item.from_doi == doi, related_articles) 
  
         
@@ -61,13 +63,14 @@ def article(doi):
     """
     Get article meta and details by doi
     """
-    
-    articles = testdata.load_article_data()
     return filter(lambda item: item.doi == doi, articles) 
         
         
         
 if __name__ == '__main__':
+
+    related_articles = testdata.load_related_article_data()
+    articles = testdata.load_article_data()
 
     records = related("a")
     print "\n"
