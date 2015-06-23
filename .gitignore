@@ -4,3 +4,4 @@
 build/
 dist/
 elifedbtools.egg-info
+.coverage
