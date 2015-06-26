@@ -1,7 +1,10 @@
 
 import database
+import json
 
-
+# The data itself
+articles = None
+related_articles = None
 
 def load_related_article_data():
     """
@@ -62,3 +65,53 @@ def load_article_data():
     
     return articles
     
+    
+def related(from_doi, to_doi = None):
+    """
+    Get related article items by doi
+    """
+    records = filter(lambda item: item.from_doi == from_doi, related_articles)
+    return records
+ 
+        
+def article(doi):
+    """
+    Get article meta and details by doi
+    """
+    return filter(lambda item: item.doi == doi, articles)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+def load_data():
+    global articles, related_articles
+    
+    related_articles = load_related_article_data()
+    articles = load_article_data()
+
+
+if __name__ == '__main__':
+
+    import testdata
+    testdata.load_data()
+
+
+    records = testdata.related("a")
+    print "\n"
+    print "Found " + str(len(records)) + " matching related article records"
+    for item in records:
+        print json.dumps(item.as_json(), indent=4)
+        print item
+
+    records = testdata.article("a")
+    print "\n"
+    print "Found " + str(len(records)) + " matching article records"
+    for item in records:
+        print json.dumps(item.as_json(), indent=4)
+        print item
+

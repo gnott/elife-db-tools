@@ -24,9 +24,8 @@ def i_load_the_related_article_test_data(step):
     
 @step(u'I load the test data')
 def i_load_the_test_data(step):
-    # All the test data for subsequent tests
-    world.articles = testdata.load_article_data()
-    world.related_articles = testdata.load_related_article_data()
+    world.data = testdata
+    world.data.load_data()
     
 @step(u'I have the doi (.*)')
 def i_have_the_doi(step, doi):
@@ -34,8 +33,8 @@ def i_have_the_doi(step, doi):
     
 @step(u'I get article records by doi')
 def i_get_article_records_by_doi(step):
-    world.list = database.article(world.articles, world.doi)
+    world.list = world.data.article(world.doi)
     
 @step(u'I get related article records by doi')
 def i_get_related_article_records_by_doi_doi(step):
-    world.list = database.related(world.related_articles, from_doi = world.doi)
+    world.list = world.data.related(from_doi = world.doi)

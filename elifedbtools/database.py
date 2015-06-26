@@ -1,6 +1,7 @@
 
 import json
-import testdata
+
+
 
 
 class DataObject(object):
@@ -48,39 +49,8 @@ class Article(DataObject):
 
     def __dir__(self):
         return ['doi', 'doi_id', 'title', 'pub_date', 'article_type']
-        
 
-def related(related_articles, from_doi, to_doi = None):
-    """
-    Get related article items by doi
-    """
-    records = filter(lambda item: item.from_doi == from_doi, related_articles)
-    return records
- 
-        
-def article(articles, doi):
-    """
-    Get article meta and details by doi
-    """
-    return filter(lambda item: item.doi == doi, articles) 
-        
-        
-        
-if __name__ == '__main__':
 
-    related_articles = testdata.load_related_article_data()
-    articles = testdata.load_article_data()
 
-    records = related(related_articles, "a")
-    print "\n"
-    print "Found " + str(len(records)) + " matching related article records"
-    for item in records:
-        print json.dumps(item.as_json(), indent=4)
-        print item
-
-    records = article(articles, "a")
-    print "\n"
-    print "Found " + str(len(records)) + " matching article records"
-    for item in records:
-        print json.dumps(item.as_json(), indent=4)
-        print item
+        
+        
