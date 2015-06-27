@@ -2,9 +2,7 @@
 import database
 import json
 
-# The data itself
-articles = None
-related_articles = None
+
 
 def load_related_article_data():
     """
@@ -95,9 +93,8 @@ def article(doi):
     
     
     
-    
-    
-    
+def build_schema():
+    pass
     
 def load_data():
     global articles, related_articles
@@ -108,18 +105,18 @@ def load_data():
 
 if __name__ == '__main__':
 
-    import testdata
-    testdata.load_data()
+    build_schema()
+    load_data()
 
 
-    records = testdata.related("a")
+    records = related("a")
     print "\n"
     print "Found " + str(len(records)) + " matching related article records"
     for item in records:
         print json.dumps(item.as_json(), indent=4)
         print item
 
-    records = testdata.article("a")
+    records = article("a")
     print "\n"
     print "Found " + str(len(records)) + " matching article records"
     for item in records:
