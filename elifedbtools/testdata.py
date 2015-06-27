@@ -27,11 +27,7 @@ def load_related_article_data():
                  }
                 ]
     for item in data:
-        data_item = database.RelatedArticle(item.get("from_doi"), item.get("to_doi"))
-        for property in dir(data_item):
-            if property not in data_item.primary_keys:
-                setattr(data_item, property, item.get(property))
-        related_articles.append(data_item)
+        add_item("RelatedArticle", item, related_articles)
     
     return related_articles
 
@@ -57,13 +53,28 @@ def load_article_data():
                  'pub_date': '2015-04-01', 'article_type': 'research-article'})
 
     for item in data:
-        data_item = database.Article(item.get("doi"))
-        for property in dir(data_item):
-            if property not in data_item.primary_keys:
-                setattr(data_item, property, item.get(property))
-        articles.append(data_item)
+        add_item("Article", item, articles)
     
     return articles
+    
+
+def add_item(object_type, item, collection):
+    #database_object = None
+    #if hasattr(database, type):
+    #    database_object = getattr(database, type)
+    
+    database_object = None
+    if object_type == "Article":
+        database_object = database.Article(item.get("doi"))
+    if object_type == "RelatedArticle":
+        database_object = database.RelatedArticle(item.get("from_doi"), item.get("to_doi"))
+
+    for property in dir(database_object):
+        if property not in database_object.primary_keys:
+            setattr(database_object, property, item.get(property))
+    
+    collection.append(database_object)
+
     
     
 def related(from_doi, to_doi = None):
