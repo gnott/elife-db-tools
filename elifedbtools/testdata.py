@@ -2,14 +2,8 @@
 import database
 import json
 
+def related_article_data():
 
-
-def load_related_article_data():
-    """
-    Temporary loading of data 
-    """
-    related_articles = []
-    
     data = [{'from_doi': 'a',
                  'to_doi':   'b',
                  'ext_link_type': 'doi',
@@ -24,17 +18,11 @@ def load_related_article_data():
                  'xlink_href': 'c'
                  }
                 ]
-    for item in data:
-        add_item("RelatedArticle", item, related_articles)
-    
-    return related_articles
 
-def load_article_data():
-    """
-    Temporary loading of data 
-    """
-    articles = []
-    
+    return data
+
+def article_data():
+
     data = []
     
     data.append({'doi': 'a', 'doi_id': 'a_id',
@@ -49,6 +37,29 @@ def load_article_data():
     data.append({'doi': 'd', 'doi_id': 'd_id',
                  'title': 'd title',
                  'pub_date': '2015-04-01', 'article_type': 'research-article'})
+
+    return data
+
+def load_related_article_data():
+    """
+    Temporary loading of data 
+    """
+    related_articles = []
+    
+    data = related_article_data()
+    
+    for item in data:
+        add_item("RelatedArticle", item, related_articles)
+    
+    return related_articles
+
+def load_article_data():
+    """
+    Temporary loading of data 
+    """
+    articles = []
+    
+    data = article_data()
 
     for item in data:
         add_item("Article", item, articles)
