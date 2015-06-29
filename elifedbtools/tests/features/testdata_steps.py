@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from lettuce import *
-import testdata, database
+import testdata
+import memdb
 
 @step(u'I count the list total as (.*)')
 def i_count_the_total_as(step, number):
@@ -13,19 +14,25 @@ def i_count_the_total_as(step, number):
         count = len(world.list)
         assert count == number, \
             "Got %d" % count
-        
+
+@step(u'I have the database (.*)')
+def i_have_the_database(step, database):
+    if database == "memdb":
+        world.database = memdb
+
 @step(u'I load the article test data')
 def i_load_the_article_test_data(step):
-    world.list = testdata.load_article_data()
+    data = testdata.article_data()
+    world.list = world.database.load_article_data(data)
     
 @step(u'I load the related article test data')
 def i_load_the_related_article_test_data(step):
-    world.list = testdata.load_related_article_data()
+    data = testdata.related_article_data()
+    world.list = world.database.load_related_article_data(data)
     
 @step(u'I load the test data')
 def i_load_the_test_data(step):
-    world.data = testdata
-    world.data.load_data()
+    world.database.load_test_data()
     
 @step(u'I have the doi (.*)')
 def i_have_the_doi(step, doi):
@@ -33,8 +40,8 @@ def i_have_the_doi(step, doi):
     
 @step(u'I get article records by doi')
 def i_get_article_records_by_doi(step):
-    world.list = world.data.article(world.doi)
+    world.list = world.database.article(world.doi)
     
 @step(u'I get related article records by doi')
 def i_get_related_article_records_by_doi_doi(step):
-    world.list = world.data.related(from_doi = world.doi)
+    world.list = world.database.related(from_doi = world.doi)
