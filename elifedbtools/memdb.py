@@ -10,7 +10,7 @@ def load_related_article_data(data):
     related_articles = []
     
     for item in data:
-        add_item("RelatedArticle", item, related_articles)
+        status = add_item("RelatedArticle", item, related_articles)
     
     return related_articles
 
@@ -21,7 +21,7 @@ def load_article_data(data):
     articles = []
     
     for item in data:
-        add_item("Article", item, articles)
+        status = add_item("Article", item, articles)
     
     return articles
     
@@ -33,23 +33,34 @@ def add_item(object_type, item, collection):
     
     database_object = None
     if object_type == "Article":
-        database_object = database.Article(item.get("doi"))
+        if len(article(item.get("doi"))) <= 0:
+            database_object = database.Article(item.get("doi"))
+            
     if object_type == "RelatedArticle":
-        database_object = database.RelatedArticle(item.get("from_doi"), item.get("to_doi"))
+        if len(related(item.get("from_doi"), item.get("to_doi"))) <= 0:
+            database_object = database.RelatedArticle(item.get("from_doi"), item.get("to_doi"))
+
+    if not database_object:
+        return False
 
     for property in dir(database_object):
         if property not in database_object.primary_keys:
             setattr(database_object, property, item.get(property))
     
     collection.append(database_object)
-
+    
+    return True
     
     
 def related(from_doi, to_doi = None):
     """
     Get related article items by doi
     """
+    if 'related_articles' not in globals():
+        return []
     records = filter(lambda item: item.from_doi == from_doi, related_articles)
+    if to_doi:
+        records = filter(lambda item: item.to_doi == to_doi, records)
     return records
  
         
@@ -57,6 +68,8 @@ def article(doi):
     """
     Get article meta and details by doi
     """
+    if 'articles' not in globals():
+        return []
     return filter(lambda item: item.doi == doi, articles)
     
     
@@ -74,6 +87,8 @@ def load_test_data():
     import testdata
     
     global articles, related_articles
+    articles = []
+    related_articles = []
     
     data = testdata.related_article_data()
     related_articles = load_related_article_data(data)
